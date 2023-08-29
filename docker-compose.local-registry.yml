@@ -1,0 +1,15 @@
+services:
+  docker-registry:
+    image: registry:2
+    restart: unless-stopped
+    environment:
+      #REGISTRY_HTTP_ADDR: "0.0.0.0:443"
+      #REGISTRY_HTTP_TLS_CERTIFICATE: "./certs/_your-mkcert-key.pem"
+      #REGISTRY_HTTP_TLS_KEY: "./certs/_your-mkcert-key.pem"
+      REGISTRY_STORAGE_DELETE_ENABLED: true
+      REGISTRY_HTTP_HEADERS_X-Content-Type-Options: "['nosniff']"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: "['*']"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods: "['HEAD', 'GET', 'OPTIONS', 'DELETE']"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers: "['Authorization']"
+      REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers: "['Docker-Content-Digest']"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Credentials: "[true]"
