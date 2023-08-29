@@ -1,0 +1,4 @@
+#ARG REGISTRY
+#FROM ${REGISTRY:-registry.local.docker}/service-a:local AS release
+
+FROM base-image AS release

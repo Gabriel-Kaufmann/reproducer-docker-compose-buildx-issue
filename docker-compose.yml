@@ -1,0 +1,29 @@
+services:
+  service-a:
+    image: ${REGISTRY:-registry.local.docker}/service-a:local
+    build:
+      context: docker/
+      dockerfile: Dockerfile.service-a
+      target: release
+      x-bake:
+        output: type=registry
+        load: true
+        push: true
+
+  service-b:
+    image: ${REGISTRY:-registry.local.docker}/service-b:local
+    depends_on:
+      - service-a
+    build:
+      context: docker/
+      dockerfile: Dockerfile.service-b
+      target: release
+      additional_contexts:
+        base-image: docker-image://${REGISTRY:-registry.local.docker}/service-a:local
+      args:
+        # only required for out-commented try using direct-image reference
+        REGISTRY: "${REGISTRY:-registry.local.docker}"
+      x-bake:
+        output: type=registry
+        load: true
+        push: true
